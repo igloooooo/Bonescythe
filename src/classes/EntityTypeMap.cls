@@ -1,0 +1,162 @@
+public class EntityTypeMap {
+    private static Map<String, String> entityMap = new Map<String, String>();
+	
+    public static String getDisplayName(String code) {
+        if(entityMap.containsKey(code)) {
+            return entityMap.get(code);
+        }else {
+            return code;
+        } 
+    }
+    
+    public static void setDisplayName(String code, String name) {
+    	entityMap.put(code, name);    
+    }
+    static{
+        entityMap.put('ADF', 'Approved Deposit Fund');
+        entityMap.put('ARF', 'APRA Regulated Fund (Fund Type Unknown)');
+        entityMap.put('NPF', 'APRA Regulated Non-Public Offer Fund');
+        entityMap.put('POF', 'APRA Regulated Public Offer Fund');
+        entityMap.put('PRV', 'Australian Private Company');
+        entityMap.put('PUB', 'Australian Public Company');
+        entityMap.put('CMT', 'Cash Management Trust');
+        entityMap.put('CSA', 'Commonwealth Government APRA Regulated Public Sector Fund');
+        entityMap.put('CSP', 'Commonwealth Government APRA Regulated Public Sector Scheme');
+        entityMap.put('CTC', 'Commonwealth Government Cash Management Trust');
+        entityMap.put('CGC', 'Commonwealth Government Company');
+        entityMap.put('CCC', 'Commonwealth Government Co-operative');
+        entityMap.put('CCU', 'Commonwealth Government Corporate Unit Trust');
+        entityMap.put('CTI', 'Commonwealth Government Discretionary Investment Trust');
+        entityMap.put('CTD', 'Commonwealth Government Discretionary Services Management Trust');
+        entityMap.put('CTT', 'Commonwealth Government Discretionary Trading Trust');
+        entityMap.put('CGE', 'Commonwealth Government Entity');
+        entityMap.put('CTF', 'Commonwealth Government Fixed Trust');
+        entityMap.put('CTU', 'Commonwealth Government Fixed Unit Trust');
+        entityMap.put('CTH', 'Commonwealth Government Hybrid Trust');
+        entityMap.put('CCL', 'Commonwealth Government Limited Partnership');
+        entityMap.put('CTL', 'Commonwealth Government Listed Public Unit Trust');
+        entityMap.put('CSS', 'Commonwealth Government Non-Regulated Super Fund');
+        entityMap.put('CCO', 'Commonwealth Government Other Incorporated Entity');
+        entityMap.put('CCN', 'Commonwealth Government Other Unincorporated Entity');
+        entityMap.put('CGP', 'Commonwealth Government Partnership');
+        entityMap.put('CCP', 'Commonwealth Government Pooled Development Fund');
+        entityMap.put('CCR', 'Commonwealth Government Private Company');
+        entityMap.put('CCB', 'Commonwealth Government Public Company');
+        entityMap.put('CCT', 'Commonwealth Government Public Trading Trust');
+        entityMap.put('CGA', 'Commonwealth Government Statutory Authority');
+        entityMap.put('CCS', 'Commonwealth Government Strata Title');
+        entityMap.put('CGS', 'Commonwealth Government Super Fund');
+        entityMap.put('CGT', 'Commonwealth Government Trust');
+        entityMap.put('CTQ', 'Commonwealth Government Unlisted Public Unit Trust');
+        entityMap.put('COP', 'Co-operative');
+        entityMap.put('CUT', 'Corporate Unit Trust');
+        entityMap.put('DES', 'Deceased Estate');
+        entityMap.put('DIP', 'Diplomatic/Consulate Body or High Commission');
+        entityMap.put('DIT', 'Discretionary Investment Trust');
+        entityMap.put('DST', 'Discretionary Services Management Trust');
+        entityMap.put('DTT', 'Discretionary Trading Trust');
+        entityMap.put('FPT', 'Family Partnership');
+        entityMap.put('FXT', 'Fixed Trust');
+        entityMap.put('FUT', 'Fixed Unit Trust');
+        entityMap.put('FHS', 'First Home Saver Accounts Trust');
+        entityMap.put('HYT', 'Hybrid Trust');
+        entityMap.put('IND', 'Individual/Sole Trader');
+        entityMap.put('LPT', 'Limited Partnership');
+        entityMap.put('PUT', 'Listed Public Unit Trust');
+        entityMap.put('LSA', 'Local Government APRA Regulated Public Sector Fund');
+        entityMap.put('LSP', 'Local Government APRA Regulated Public Sector Scheme');
+        entityMap.put('LTC', 'Local Government Cash Management Trust');
+        entityMap.put('LGC', 'Local Government Company');
+        entityMap.put('LCC', 'Local Government Co-operative');
+        entityMap.put('LCU', 'Local Government Corporate Unit Trust');
+        entityMap.put('LTI', 'Local Government Discretionary Investment Trust');
+        entityMap.put('LTD', 'Local Government Discretionary Services Management Trust');
+        entityMap.put('LTT', 'Local Government Discretionary Trading Trust');
+        entityMap.put('LGE', 'Local Government Entity');
+        entityMap.put('LTF', 'Local Government Fixed Trust');
+        entityMap.put('LTU', 'Local Government Fixed Unit Trust');
+        entityMap.put('LTH', 'Local Government Hybrid Trust');
+        entityMap.put('LCL', 'Local Government Limited Partnership');
+        entityMap.put('LTL', 'Local Government Listed Public Unit Trust');
+        entityMap.put('LSS', 'Local Government Non-Regulated Super Fund');
+        entityMap.put('LCO', 'Local Government Other Incorporated Entity');
+        entityMap.put('LCN', 'Local Government Other Unincorporated Entity');
+        entityMap.put('LGP', 'Local Government Partnership');
+        entityMap.put('LCP', 'Local Government Pooled Development Fund');
+        entityMap.put('LCR', 'Local Government Private Company');
+        entityMap.put('LCB', 'Local Government Public Company');
+        entityMap.put('LCT', 'Local Government Public Trading Trust');
+        entityMap.put('LGA', 'Local Government Statutory Authority');
+        entityMap.put('LCS', 'Local Government Strata Title');
+        entityMap.put('LGT', 'Local Government Trust');
+        entityMap.put('LTQ', 'Local Government Unlisted Public Unit Trust');
+        entityMap.put('NRF', 'Non-Regulated Superannuation Fund');
+        entityMap.put('OIE', 'Other Incorporated Entity');
+        entityMap.put('PTR', 'Other Partnership');
+        entityMap.put('TRT', 'Other Trust');
+        entityMap.put('UIE', 'Other Unincorporated Entity');
+        entityMap.put('PDF', 'Pooled Development Fund');
+        entityMap.put('PST', 'Pooled Superannuation Trust');
+        entityMap.put('PTT', 'Public Trading Trust');
+        entityMap.put('SMF', 'Regulated Self-Managed Superannuation Fund');
+        entityMap.put('SAF', 'Small APRA Regulated Fund');
+        entityMap.put('SSA', 'State Government APRA Regulated Public Sector Fund');
+        entityMap.put('SSP', 'State Government APRA Regulated Public Sector Scheme');
+        entityMap.put('STC', 'State Government Cash Management Trust');
+        entityMap.put('SGC', 'State Government Company');
+        entityMap.put('SCC', 'State Government Co-operative');
+        entityMap.put('SCU', 'State Government Corporate Unit Trust');
+        entityMap.put('STI', 'State Government Discretionary Investment Trust');
+        entityMap.put('STD', 'State Government Discretionary Services Management Trust');
+        entityMap.put('STT', 'State Government Discretionary Trading Trust');
+        entityMap.put('SGE', 'State Government Entity');
+        entityMap.put('STF', 'State Government Fixed Trust');
+        entityMap.put('STU', 'State Government Fixed Unit Trust');
+        entityMap.put('STH', 'State Government Hybrid Trust');
+        entityMap.put('SCL', 'State Government Limited Partnership');
+        entityMap.put('STL', 'State Government Listed Public Unit Trust');
+        entityMap.put('SSS', 'State Government Non-Regulated Super Fund');
+        entityMap.put('SCO', 'State Government Other Incorporated Entity');
+        entityMap.put('SCN', 'State Government Other Unincorporated Entity');
+        entityMap.put('SGP', 'State Government Partnership');
+        entityMap.put('SCP', 'State Government Pooled Development Fund');
+        entityMap.put('SCR', 'State Government Private Company');
+        entityMap.put('SCB', 'State Government Public Company');
+        entityMap.put('SCT', 'State Government Public Trading Trust');
+        entityMap.put('SGA', 'State Government Statutory Authority');
+        entityMap.put('SCS', 'State Government Strata Title');
+        entityMap.put('SGT', 'State Government Trust');
+        entityMap.put('STQ', 'State Government Unlisted Public Unit Trust');
+        entityMap.put('STR', 'Strata-title');
+        entityMap.put('SUP', 'Super Fund');
+        entityMap.put('TSA', 'Territory Government APRA Regulated Public Sector Fund');
+        entityMap.put('TSP', 'Territory Government APRA Regulated Public Sector Scheme');
+        entityMap.put('TTC', 'Territory Government Cash Management Trust');
+        entityMap.put('TCC', 'Territory Government Co-operative');
+        entityMap.put('TCU', 'Territory Government Corporate Unit Trust');
+        entityMap.put('TTI', 'Territory Government Discretionary Investment Trust');
+        entityMap.put('TTD', 'Territory Government Discretionary Services Management Trust');
+        entityMap.put('TTT', 'Territory Government Discretionary Trading Trust');
+        entityMap.put('TGE', 'Territory Government Entity');
+        entityMap.put('TTF', 'Territory Government Fixed Trust');
+        entityMap.put('TTU', 'Territory Government Fixed Unit Trust');
+        entityMap.put('TTH', 'Territory Government Hybrid Trust');
+        entityMap.put('TCL', 'Territory Government Limited Partnership');
+        entityMap.put('TTL', 'Territory Government Listed Public Unit Trust');
+        entityMap.put('TSS', 'Territory Government Non-Regulated Super Fund');
+        entityMap.put('TCO', 'Territory Government Other Incorporated Entity');
+        entityMap.put('TCN', 'Territory Government Other Unincorporated Entity');
+        entityMap.put('TGP', 'Territory Government Partnership');
+        entityMap.put('TCP', 'Territory Government Pooled Development Fund');
+        entityMap.put('TCR', 'Territory Government Private Company');
+        entityMap.put('TCB', 'Territory Government Public Company');
+        entityMap.put('TCT', 'Territory Government Public Trading Trust');
+        entityMap.put('TGA', 'Territory Government Statutory Authority');
+        entityMap.put('TCS', 'Territory Government Strata Title');
+        entityMap.put('TGT', 'Territory Government Trust');
+        entityMap.put('TTQ', 'Territory Government Unlisted Public Unit Trust');
+        entityMap.put('PQT', 'Unlisted Public Unit Trust');        
+    }
+
+    
+}
