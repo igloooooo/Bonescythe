@@ -46,7 +46,7 @@ public class CheckCreditUtil {
             	validationCheck = false;
                 System.debug('start to check sole trader.');
             }
-            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c)) {
+            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c) || date.parse(account.Veda_ST_Date_of_Birth__c) == null) {
             	validationCheck = false;
                 System.debug('start to check sole trader.');
             }

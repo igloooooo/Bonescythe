@@ -28,7 +28,7 @@ trigger CheckCreditTrigger on Opportunity (before update) {
                     }
                        
                 } else if(opportunity.Payment_Method__c == 'Neopost Finance') {
-                    opportunity.Fulfilment_Status__c = 'Neopost Finance - Pending for AR Approval';    
+                    opportunity.Fulfilment_Status__c = 'Neopost Finance - Pending for Finance Approval';    
                 }
                 // else if(opportunity.Payment_Method__c == 'Neopost Finance' 
                 //     && (account.Veeda_Check_Date_Time__c == null || (account.Veeda_Check_Date_Time__c != null
@@ -50,9 +50,17 @@ trigger CheckCreditTrigger on Opportunity (before update) {
                     if(String.isNotEmpty(message)){
                         opportunity.addError('Missing compulsory fields for Veda Check:'+ message);          
                     } else {
-                        opportunity.Fulfilment_Status__c = 'Performing Credit Check';
-                        CreditCheckTriggerCallOut.triggerCheckCredit(opportunity.id, '1');
-                        System.debug('start to check credit');      
+                        if (account.Veeda_Check_Date_Time__c != null) {
+                            if (account.Veeda_Status__c == 'OK') {
+                                opportunity.Fulfilment_Status__c = 'Ready for Movex'; 
+                            } else if (opportunity.Fulfilment_Status__c != 'Performing Credit Check'){
+                                opportunity.Fulfilment_Status__c = 'Invalid Credit Information - Pending for Finance Approval'; 
+                            }
+                        } else {
+                            opportunity.Fulfilment_Status__c = 'Performing Credit Check';
+                            CreditCheckTriggerCallOut.triggerCheckCredit(opportunity.id, '1');
+                            System.debug('start to check credit');  
+                        }    
                     }                         
                 }
             }
