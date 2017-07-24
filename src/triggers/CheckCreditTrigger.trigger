@@ -10,7 +10,8 @@ trigger CheckCreditTrigger on Opportunity (before update) {
                                Veda_ST_Surname__c, Veda_ST_Given_Name__c, Veda_ST_Gender__c, 
                                Veda_ST_Date_of_Birth__c, Veda_ST_Driver_License_Number__c, 
                                Veda_ST_Suburb__c,Veda_ST_Postcode__c, Veda_ST_StreetName__c, Veda_ST_StreetNumber__c,
-                               State__c, Veeda_Check_Date_Time__c, Veda_Terms_Conditions_Signed__c
+                               State__c, Veeda_Check_Date_Time__c, Veda_Terms_Conditions_Signed__c,
+                               Veeda_Status__c
                               from Account where id = :accountID];
                 System.debug('account.Customer_Number__c is ' + account.Customer_Number__c);
                    System.debug('opportunity.Payment_Method__c is ' + opportunity.Payment_Method__c);

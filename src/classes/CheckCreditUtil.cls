@@ -46,7 +46,7 @@ public class CheckCreditUtil {
             	validationCheck = false;
                 System.debug('start to check sole trader.');
             }
-            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c) || date.parse(account.Veda_ST_Date_of_Birth__c) == null) {
+            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c) || date.valueOf(account.Veda_ST_Date_of_Birth__c) == null) {
             	validationCheck = false;
                 System.debug('start to check sole trader.');
             }
@@ -127,7 +127,7 @@ public class CheckCreditUtil {
                 System.debug('account.Veda_ST_Gender__c');
                 //opportunity.addError('You can NOT close this opportunity - Please enter gender in Accounts to generate Veda report.');
             }
-            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c)) {
+            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c) || date.valueOf(account.Veda_ST_Date_of_Birth__c) == null) {
             	validationCheck = false;
                 System.debug('account.Veda_ST_Date_of_Birth__c');
                 //opportunity.addError('You can NOT close this opportunity - Please enter date of birth in Accounts to generate Veda report.');
@@ -297,7 +297,7 @@ public class CheckCreditUtil {
                 errorList.add('Gender');
                 //return 'You can NOT close this opportunity - Please enter gender in Accounts to generate Veda report.';
             }
-            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c)) {
+            if(String.isEmpty(account.Veda_ST_Date_of_Birth__c) || date.valueOf(account.Veda_ST_Date_of_Birth__c) == null) {
                 errorList.add('Date of birth');
                 //return 'You can NOT close this opportunity - Please enter date of birth in Accounts to generate Veda report.';
             }

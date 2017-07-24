@@ -47,4 +47,44 @@ public class CheckCreditTriggerTest {
         Test.stopTest();
 
     }
+
+    static testMethod void testTriggerFive() {
+        Opportunity opp = CreditReportTestDataFactory.createOppWithAccountWithNeopostFinanceForTriggerFive();
+        opp.StageName = 'Closed Won';    
+        opp.ABN__c = '222';
+        
+        Test.startTest();
+        Test.setMock(HttpCalloutMock.class, new NEOCalloutMock());
+        EntityTypeMap.setDisplayName('PRV', 'Company');
+        update opp;
+        Test.stopTest();
+
+    }
+
+    static testMethod void testTriggerSix() {
+        Opportunity opp = CreditReportTestDataFactory.createOppWithAccountWithNeopostFinanceForTriggerSix();
+        opp.StageName = 'Closed Won';    
+        opp.ABN__c = '222';
+        
+        Test.startTest();
+        Test.setMock(HttpCalloutMock.class, new NEOCalloutMock());
+        EntityTypeMap.setDisplayName('PRV', 'Company');
+        update opp;
+        Test.stopTest();
+
+    }
+
+    static testMethod void testTriggerSeven() {
+        Opportunity opp = CreditReportTestDataFactory.createOppWithAccountWithNeopostFinanceForTriggerSeven();
+        opp.StageName = 'Closed Won';    
+        opp.ABN__c = '222';
+        opp.Fulfilment_Status__c = 'abc';
+        
+        Test.startTest();
+        Test.setMock(HttpCalloutMock.class, new NEOCalloutMock());
+        EntityTypeMap.setDisplayName('PRV', 'Company');
+        update opp;
+        Test.stopTest();
+
+    }
 }
