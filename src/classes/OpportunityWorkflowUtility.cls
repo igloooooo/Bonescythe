@@ -99,27 +99,28 @@ global abstract class OpportunityWorkflowUtility {
     }
     
     public static void getlineitems(){
-        
-        Map<String, Schema.SObjectField> schemaFieldMap = Schema.SObjectType.OpportunityLineItem.fields.getMap();
-        string lineItemQuery = 'SELECT ';
-        
-        for (String fieldName: schemaFieldMap.keySet()) {
-            lineItemQuery += fieldName + ', ';
-        }
-        
-        //lineItemQuery = lineItemQuery.removeEnd(', ');
-        lineItemQuery += 'Opportunity.isClosed, Opportunity.isWon';
-        
-        lineItemQuery += ' FROM OpportunityLineItem '
-            + 'where OpportunityId = \'' + opportunity.Id + '\' '
-            + 'and Id not in :lineItemsForDelete ';
-        //+ 'and Id not in :lineItems';
-        
-        List<OpportunityLineItem> items = database.query(lineItemQuery);
-        
-        if(!items.isEmpty()){
-            lineItems = database.query(lineItemQuery);
-        }
+        if (opportunity.Fulfilment_Status__c != 'Sent to Movex') {
+            Map<String, Schema.SObjectField> schemaFieldMap = Schema.SObjectType.OpportunityLineItem.fields.getMap();
+            string lineItemQuery = 'SELECT ';
+            
+            for (String fieldName: schemaFieldMap.keySet()) {
+                lineItemQuery += fieldName + ', ';
+            }
+            
+            //lineItemQuery = lineItemQuery.removeEnd(', ');
+            lineItemQuery += 'Opportunity.isClosed, Opportunity.isWon';
+            
+            lineItemQuery += ' FROM OpportunityLineItem '
+                + 'where OpportunityId = \'' + opportunity.Id + '\' '
+                + 'and Id not in :lineItemsForDelete ';
+            //+ 'and Id not in :lineItems';
+            
+            List<OpportunityLineItem> items = database.query(lineItemQuery);
+            
+            if(!items.isEmpty()){
+                lineItems = database.query(lineItemQuery);
+            }   
+        }       
     }
     
     public static void doUpdateOpportunities(){

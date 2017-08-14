@@ -2,7 +2,7 @@ trigger OpportunityTrigger on Opportunity (after update) {
     
     for(Opportunity o : trigger.new){
         
-        if(!OpportunityWorkflowUtility.isInOppTrigger){
+        if(!OpportunityWorkflowUtility.isInOppTrigger && Trigger.oldMap.get(o.Id).Fulfilment_Status__c != 'Sent to Movex'){
             
             OpportunityTriggerHelper.setIsInOppTrigger();
             

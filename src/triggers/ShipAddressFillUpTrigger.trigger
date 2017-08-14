@@ -2,7 +2,7 @@ trigger ShipAddressFillUpTrigger on Opportunity (before insert, before update) {
 	for (Opportunity o : Trigger.new)
     {
         System.debug('ship address:' + o.Ship_Address_Default__c);
-        if (o.Ship_Address_Default__c != null)
+        if (o.Ship_Address_Default__c != null && Trigger.oldMap.get(o.Id).Fulfilment_Status__c != 'Sent to Movex')
         {
             // find the default ship address
             String accountId = o.AccountId;

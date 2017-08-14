@@ -1,7 +1,7 @@
 trigger OpportunityLineItemTrigger on OpportunityLineItem (after insert, after update, after delete, after undelete){
-    // Hi Matt, I am sorry i have to commen those code because it has compile issues. Feel free to uncommen them after you fix the problem.
     system.debug('OpportunityWorkflowUtility.isInLineItemTrigger: ' + OpportunityWorkflowUtility.isInLineItemTrigger);
     
+    // check if Opportunity if Fulfilment_Status__c != 'Sent to Movex'
     if(!OpportunityWorkflowUtility.isInLineItemTrigger){
 
         OpportunityLineItemTriggerHelper.setIsInLineItemTrigger();
@@ -61,10 +61,13 @@ trigger OpportunityLineItemTrigger on OpportunityLineItem (after insert, after u
                 }
             }
 
-            OpportunityLineItemTriggerHelper.setLineItems(trigger.new);
+            if (opp.Fulfilment_Status__c != 'Sent to Movex') {
+                OpportunityLineItemTriggerHelper.setLineItems(trigger.new);
             
-            //OpportunityLineItemTriggerHelper.doCheckLineItemPrice();
-            OpportunityLineItemTriggerHelper.doValidateOpportunityLineItems();
+                //OpportunityLineItemTriggerHelper.doCheckLineItemPrice();
+                OpportunityLineItemTriggerHelper.doValidateOpportunityLineItems();
+            }
+
     
         }
         
