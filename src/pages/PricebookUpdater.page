@@ -1,0 +1,50 @@
+<apex:page controller="PricebookEntryUpdater" tabStyle="PricebookEntry">
+    
+    <apex:form >
+    
+    <apex:sectionHeader title="Pricebook Entry Updater"/>
+        
+        <apex:pageBlock >
+            
+            
+            
+            <apex:pageBlockSection columns="1">
+                
+                <!--apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Download Upsert Template" />
+                    <a href="{!URLFOR($Resource.PricebookEntryUpdateTemplate)}.csv" target="_blank">Click Here</a>
+                </apex:pageBlockSectionItem-->
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Select Pricebook" />
+                    <apex:selectList value="{!pricebookId}" size="1">
+                        <apex:selectOptions value="{!pricebookOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <!--apex:pageBlockSectionItem>
+<apex:outputLabel value="Match Entry Using" />
+<apex:selectList value="{!matchOn}" size="1">
+<!--apex:selectOption itemValue="Product Code" itemLabel="Product Code" / >
+<apex:selectOption itemValue="Item_Number__c" itemLabel="Item Number" />
+<!--apex:selectOption itemValue="PricebookEntryId" itemLabel="Pricebook Entry Id" />
+</apex:selectList>
+</apex:pageBlockSectionItem-->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Upload File" />
+                    <apex:inputFile value="{!fileblob}" />
+                </apex:pageBlockSectionItem>
+                
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!updatePricebookEntries}" value="Upsert Pricebook Entries"  />
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>
