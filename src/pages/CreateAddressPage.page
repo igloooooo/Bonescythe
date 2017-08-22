@@ -4,18 +4,18 @@
         <apex:pageBlock title="Address" mode="edit">
             <apex:pageMessages ></apex:pageMessages>
               <apex:pageBlockSection title="Information" columns="2">
-                    <apex:inputField value="{!address.Type__c}"/>
-                    <apex:inputField value="{!address.Address_For_Order__c}"/>
-                    <apex:inputField value="{!address.Address_ID__c}"/>
-                    <apex:inputField value="{!address.Street__c}"/>
-                    <apex:inputField value="{!address.Customer__c}"/>  
-                    <apex:inputField value="{!address.Suburb__c}"/>                 
-                    <apex:inputField value="{!address.Phone__c}"/>
-                    <apex:inputField value="{!address.State__c}"/>                   
-                    <apex:inputField value="{!address.Description__c}"/>                   
-                    <apex:inputField value="{!address.Postcode__c}"/>
-                    <apex:inputhidden value="{!address.Address_Key__c}"/>
-                    <apex:inputField value="{!address.Country__c}"/>
+                    <apex:inputField value="{!address__c.Type__c}"/>
+                    <apex:inputField value="{!address__c.Address_For_Order__c}"/>
+                    <apex:inputField value="{!address__c.Address_ID__c}"/>
+                    <apex:inputField value="{!address__c.Street__c}"/>
+                    <apex:inputField value="{!address__c.Customer__c}"/>  
+                    <apex:inputField value="{!address__c.Suburb__c}"/>                 
+                    <apex:inputField value="{!address__c.Phone__c}"/>
+                    <apex:inputField value="{!address__c.State__c}"/>                   
+                    <apex:inputField value="{!address__c.Description__c}"/>                   
+                    <apex:inputField value="{!address__c.Postcode__c}"/>
+                    <apex:inputhidden value="{!address__c.Address_Key__c}"/>
+                    <apex:inputField value="{!address__c.Country__c}"/>
             </apex:pageBlockSection>
             <apex:pageBlockButtons >
                 <apex:commandButton action="{!save}" value="Save"/>
