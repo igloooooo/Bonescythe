@@ -1,0 +1,7 @@
+<apex:page standardController="Opportunity" extensions="cloneOpportunityController"
+           action="{!generateClonedOppty}">
+    
+    <apex:messages /><br/>
+    Click here to return to the previous page
+    
+</apex:page>

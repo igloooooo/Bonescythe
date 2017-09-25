@@ -1,0 +1,13 @@
+<apex:page standardController="Account" extensions="AccountHeadMsgExtension" action="{!checkAccountEntity}">
+    <apex:stylesheet value="{!$Resource.account_alert}"/>
+    <apex:stylesheet value="{!$Resource.account_alert_img}"/>
+    <apex:form rendered="{!Account.Display_Alert__c == true}">
+        <warning>
+            <img src="{!$Resource.account_alert_img}" border="0" />
+        	<apex:outputText value="{!acc.Check_Entity_Status__c}" style="color:{!IF(acc.Check_Entity_Status__c = 'ABN verified.', 'green', 'red')};"></apex:outputText>    
+        </warning>
+        <actionBar>
+        	<apex:commandLink id="cmdLink" Value="Ignore This Message" action="{!Dismiss}"/>
+        </actionBar>       
+    </apex:form>
+</apex:page>

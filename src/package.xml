@@ -57,6 +57,10 @@
         <name>ApexClass</name>
     </types>
     <types>
+        <members>*</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
         <members>AddFreightTrigger</members>
         <members>CheckCreditTrigger</members>
         <members>CheckEntityTypeTrigger</members>
