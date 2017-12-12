@@ -6,7 +6,7 @@ public class SetPriceBookTriggerTestDataFactory {
         a.ABN__c = 'aaa';
         a.ACN__c = 'aaa';
         a.BillingCity = 'test bill city';  
-        a.BillingState = 'test state';
+        a.BillingState = 'NSW';
         a.BillingPostalCode = '1111';
         a.Customer_Number__c = 'aaaa';
         a.Phone = '111';
@@ -31,7 +31,7 @@ public class SetPriceBookTriggerTestDataFactory {
         a.ABN__c = 'aaa';
         a.ACN__c = 'aaa';
         a.BillingCity = 'test bill city';  
-        a.BillingState = 'test state';
+        a.BillingState = 'NSW';
         a.BillingPostalCode = '1111';
         a.Customer_Number__c = 'aaaa';
         a.Phone = '111';
@@ -45,7 +45,7 @@ public class SetPriceBookTriggerTestDataFactory {
         a.Veda_ST_StreetName__c = 'cc';
         a.Veda_ST_StreetNumber__c = 'aa';
         a.Display_Alert__c = false;
-        a.Price_Group__c = 'GV';
+        a.Price_Group__c = 'EG';
         insert a;
              
         return a;
