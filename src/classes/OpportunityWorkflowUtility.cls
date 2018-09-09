@@ -489,7 +489,7 @@ totalAmount = totalMachineValue + totalContractValue;
                 try{
                     database.upsert(item);
                     if(!isUpdate && opportunity.Requested_Delivery_Date__c != null){
-                        oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(5);
+                        //oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(5);
                     }
                 } catch (exception e){
                     system.debug('FREIGHT PRODUCT COULD NOT BE ADDED: ' + e.getMessage());
@@ -499,7 +499,7 @@ totalAmount = totalMachineValue + totalContractValue;
                     database.delete(item);
                     system.debug('@@@@@@@@ opportunity.Requested_Delivery_Date__c: ' + opportunity.Requested_Delivery_Date__c);
                     if(opportunity.Requested_Delivery_Date__c != null){
-                        oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(-5);
+                        //oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(-5);
                     }
                     system.debug('@@@@@@@@ oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c: ' + oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c);
                 }

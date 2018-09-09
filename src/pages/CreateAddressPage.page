@@ -56,7 +56,7 @@
                     
                     <apex:pageBlockSectionItem id="streetItem">
                         <apex:outputLabel value="{!IF(a.datasan__SOT__c=='GNAF',"Street", "Street / PostalBox")}" />
-                        <apex:inputText id="street" value="{!address.Street__c}" html-readonly="true" tabindex="1"/>
+                        <apex:inputText id="street" value="{!address.Street__c}" tabindex="1"/>
                     </apex:pageBlockSectionItem>                     
 
                     <apex:pageBlockSectionItem id="streetInputItem">
@@ -66,25 +66,25 @@
                     
                     <apex:pageBlockSectionItem id="cityItem">
                         <apex:outputLabel value="{!IF(a.datasan__SOT__c=='NZPAF',"Suburb", "City")}" />
-                        <apex:inputText id="city" value="{!address.Suburb__c}" html-readonly="true" tabindex="1"/>
+                        <apex:inputText id="city" value="{!address.Suburb__c}" tabindex="1"/>
                     </apex:pageBlockSectionItem>
                     <apex:pageBlockSectionItem />
                     
                     <apex:pageBlockSectionItem id="stateItem">
                         <apex:outputLabel value="{!IF(a.datasan__SOT__c=='NZPAF',"TownCity", "State")}" />
-                        <apex:inputText id="state" value="{!address.State__c}" html-readonly="true" tabindex="1"/>
+                        <apex:inputText id="state" value="{!address.State__c}" tabindex="1"/>
                     </apex:pageBlockSectionItem>  
                     <apex:pageBlockSectionItem />
                     
                     <apex:pageBlockSectionItem id="postcodeItem">
                         <apex:outputLabel value="Postcode" />
-                        <apex:inputText id="postcode" value="{!address.Postcode__c}" html-readonly="true" tabindex="1"/>
+                        <apex:inputText id="postcode" value="{!address.Postcode__c}" tabindex="1"/>
                     </apex:pageBlockSectionItem>  
                     <apex:pageBlockSectionItem />
                     
                     <apex:pageBlockSectionItem id="countryItem">
                         <apex:outputLabel value="Country" />
-                        <apex:inputText id="country" value="{!address.Country__c}" html-readonly="true" tabindex="1"/>
+                        <apex:inputText id="country" value="{!address.Country__c}" tabindex="1"/>
                     </apex:pageBlockSectionItem>  
                     <apex:pageBlockSectionItem />
 
