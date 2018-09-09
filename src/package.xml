@@ -54,6 +54,10 @@
         <members>VerifyEntityResponseTest</members>
         <members>WorkOrderTriggerHandler</members>
         <members>WorkOrderTriggerHandlerTest</members>
+        <members>cloneOpportunityController</members>
+        <members>test_CloneOpportunity</members>
+        <members>test_OpportunityWorkflows</members>
+        <members>test_PricebookEntryUpdater</members>
         <name>ApexClass</name>
     </types>
     <types>

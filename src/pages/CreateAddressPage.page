@@ -1,21 +1,161 @@
 <apex:page standardController="Address__c" standardStylesheets="true" extensions="CreateAddressPageCtrl">
-    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://s3-ap-southeast-2.amazonaws.com/datasan/1.2/datasan.min.js"></script>
+  
+    <script>
+        jQuery(document).ready(function() {  
+            datasan.init({
+                key : "{!JSINHTMLENCODE(dsSetting.datasan__Key__c)}",
+                harmonyHostedApiUrl : "{!JSINHTMLENCODE(dsSetting.datasan__Endpoint__c)}",
+                theme : "flick"
+            });
+        });
+    </script>
     <apex:form > 
         <apex:pageBlock title="Address" mode="edit">
             <apex:pageMessages ></apex:pageMessages>
-              <apex:pageBlockSection title="Information" columns="2">
-                    <apex:inputField value="{!address__c.Type__c}"/>
-                    <apex:inputField value="{!address__c.Address_For_Order__c}"/>
-                    <apex:inputField value="{!address__c.Address_ID__c}"/>
-                    <apex:inputField value="{!address__c.Street__c}"/>
-                    <apex:inputField value="{!address__c.Customer__c}"/>  
-                    <apex:inputField value="{!address__c.Suburb__c}"/>                 
-                    <apex:inputField value="{!address__c.Phone__c}"/>
-                    <apex:inputField value="{!address__c.State__c}"/>                   
-                    <apex:inputField value="{!address__c.Description__c}"/>                   
-                    <apex:inputField value="{!address__c.Postcode__c}"/>
-                    <apex:inputhidden value="{!address__c.Address_Key__c}"/>
-                    <apex:inputField value="{!address__c.Country__c}"/>
+            <apex:pageBlockSection id="section" title="{!a.name}" columns="2" dir="">    
+
+                    <apex:pageBlockSectionItem id="addressHeading">
+                        <apex:outputText value="Lookup an address below. Address fields will be filled on the right side."/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText />
+                    </apex:pageBlockSectionItem>                
+                    <apex:outputText />
+                    <apex:outputText /> 
+                    
+                    <apex:pageBlockSectionItem id="sotList">
+                        <apex:outputText value="Choose source of truth: "/>
+                        <apex:selectList id="sot" size="1" value="{!a.datasan__SOT__c}">
+                            <apex:selectOptions value="{!items}"/>
+                            <!--<apex:selectoption itemLabel="Australian postal addresses (AUPAF)" itemValue="AUPAF"></apex:selectoption>
+                            <apex:selectoption itemLabel="Australian geo-coded addresses (GNAF)" itemValue="GNAF"></apex:selectoption>
+                            <apex:selectoption itemLabel="All Australian addresses (AUSOTS)" itemValue="AUSOTS"></apex:selectoption>
+                            <apex:selectoption itemLabel="New Zealand post addresses (NZPAF)" itemValue="NZPAF"></apex:selectoption>-->
+                            <apex:actionSupport event="onchange" rerender="section" status="actionStatus"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:actionStatus id="actionStatus">
+                            <apex:facet name="start">
+                                <apex:outputText style="font-weight:bold;font-size:16px;color:red;" value="Loading Fields..."/>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:pageBlockSectionItem>                
+                    <apex:outputText />
+                    <apex:outputText /> 
+                    
+                    <apex:pageBlockSectionItem id="cityInputItem">
+                        <apex:outputLabel value="Enter Suburb, City or Postcode" for="cityInput" />
+                        <apex:inputText id="cityInput" tabindex="0" />
+                    </apex:pageBlockSectionItem> 
+                    
+                    <apex:pageBlockSectionItem id="streetItem">
+                        <apex:outputLabel value="{!IF(a.datasan__SOT__c=='GNAF',"Street", "Street / PostalBox")}" />
+                        <apex:inputText id="street" value="{!address.Street__c}" html-readonly="true" tabindex="1"/>
+                    </apex:pageBlockSectionItem>                     
+
+                    <apex:pageBlockSectionItem id="streetInputItem">
+                        <apex:outputLabel value="Enter Street" for="streetInput"/>
+                        <apex:inputText id="streetInput" tabindex="0" />
+                    </apex:pageBlockSectionItem>     
+                    
+                    <apex:pageBlockSectionItem id="cityItem">
+                        <apex:outputLabel value="{!IF(a.datasan__SOT__c=='NZPAF',"Suburb", "City")}" />
+                        <apex:inputText id="city" value="{!address.Suburb__c}" html-readonly="true" tabindex="1"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem />
+                    
+                    <apex:pageBlockSectionItem id="stateItem">
+                        <apex:outputLabel value="{!IF(a.datasan__SOT__c=='NZPAF',"TownCity", "State")}" />
+                        <apex:inputText id="state" value="{!address.State__c}" html-readonly="true" tabindex="1"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem />
+                    
+                    <apex:pageBlockSectionItem id="postcodeItem">
+                        <apex:outputLabel value="Postcode" />
+                        <apex:inputText id="postcode" value="{!address.Postcode__c}" html-readonly="true" tabindex="1"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem />
+                    
+                    <apex:pageBlockSectionItem id="countryItem">
+                        <apex:outputLabel value="Country" />
+                        <apex:inputText id="country" value="{!address.Country__c}" html-readonly="true" tabindex="1"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem />
+
+                    <script>
+                        datasan.autoCompleteLocality(
+                            "{!$Component.cityInputItem.cityInput}",
+                            {   
+                                sot   : "{!$Component.sotList.sot}",
+                                menu  : {label: "{locality_name}{suburb}{postal_delivery_type} {state}{townCity}, {postcode}", value: "{locality_name}{suburb}{postal_delivery_type} {state}{townCity}, {postcode}"},
+                                select: [
+                                        {id: "{!$Component.cityItem.city}",    value: "{locality_name}{suburb}{postal_delivery_type}"},
+                                        {id: "{!$Component.postcodeItem.postcode}",     value: "{postcode}"},
+                                        {id: "{!$Component.stateItem.state}",   value: "{state}{townCity}"},
+                                        {id: "{!$Component.countryItem.country}",  value: "{country}"},
+                                        {id: "{!$Component.streetItem.street}",  value: ""},
+                                        {id: "{!$Component.dpidItem.dpid}",  value: ""},
+                                        {id: "{!$Component.barcodeItem.barcode}",  value: ""},
+                                        {id: "{!$Component.bspItem.bsp}",  value: ""},
+                                        {id: "{!$Component.gnafpidItem.gnafpid}",  value: ""},
+                                        {id: "{!$Component.meshBlockItem.meshBlock}",  value: ""},
+                                        {id: "{!$Component.latLongItem.latLong}",  value: ""},
+                                        {id: "{!$Component.gnafGroupPidItem.gnafGroupPid}",  value: ""},
+                                        {id: "{!$Component.gnafPointPidItem.gnafPointPid}",  value: ""},
+                                        {id: "{!$Component.gnafReliabilityItem.gnafReliability}",  value: ""},
+                                        {id: "{!$Component.gnafConfidenceItem.gnafConfidence}",  value: ""},
+                                        {id: "{!$Component.geocodeLevelItem.geocodeLevel}",  value: ""},
+                                        {id: "{!$Component.parcelIdItem.parcelId}",  value: ""},
+                                        {id: "{!$Component.xyCoordinateItem.xyCoordinate}",  value: ""}                                                                 
+                                        ]
+                            }
+                        );
+                    
+                        datasan.autoCompleteAddress(
+                            "{!$Component.streetInputItem.streetInput}",
+                            {   locality : {city :"{!$Component.cityItem.city}", postcode : "{!$Component.postcodeItem.postcode}"},
+                                sot   : "{!$Component.sotList.sot}",
+                                localityInput :  "{!$Component.cityInputItem.cityInput}",
+                                menu  : {label: "<b>{address_line_1}</b><br/>{locality_name}{suburb}{postal_delivery_type} {state}{townCity}, {postcode}", value: "{address_line_1}"},
+                                select: [
+                                        {id: "{!$Component.cityItem.city}",    value: "{locality_name}{suburb}{postal_delivery_type}"},
+                                        {id: "{!$Component.postcodeItem.postcode}",     value: "{postcode}"},
+                                        {id: "{!$Component.stateItem.state}",   value: "{state}{townCity}"},
+                                        {id: "{!$Component.streetItem.street}",  value: "{address_line_1}"},
+                                        {id: "{!$Component.countryItem.country}",  value: "{country}"},
+                                        {id: "{!$Component.dpidItem.dpid}",  value: "{delivery_point_id}"},
+                                        {id: "{!$Component.barcodeItem.barcode}",  value: "{Barcode}"},
+                                        {id: "{!$Component.bspItem.bsp}",  value: "{Bsp}"},
+                                        {id: "{!$Component.gnafpidItem.gnafpid}",  value: "{delivery_point_id}"},
+                                        {id: "{!$Component.meshBlockItem.meshBlock}",  value: "{MeshblockId}"},
+                                        {id: "{!$Component.latLongItem.latLong}",  value: "{Latitude} {Longitude}"},
+                                        {id: "{!$Component.gnafGroupPidItem.gnafGroupPid}",  value: "{GNAFGroupPID}"},
+                                        {id: "{!$Component.gnafPointPidItem.gnafPointPid}",  value: "{GNAFPointPID}"},
+                                        {id: "{!$Component.gnafReliabilityItem.gnafReliability}",  value: "{GNAFReliability}"},
+                                        {id: "{!$Component.gnafConfidenceItem.gnafConfidence}",  value: "{GNAFConfidence}"},
+                                        {id: "{!$Component.geocodeLevelItem.geocodeLevel}",  value: "{GeocodeLevel}"},
+                                        {id: "{!$Component.parcelIdItem.parcelId}",  value: "{ParcelId}{ParcelID}"},
+                                        {id: "{!$Component.xyCoordinateItem.xyCoordinate}",  value: "{XCoordinate} {YCoordinate}"}          
+                                        ]
+                            }
+                        );
+                    </script>
+
+                </apex:pageBlockSection> 
+              <apex:pageBlockSection title="Account Information" columns="2">
+                    <apex:inputField value="{!address.Type__c}"/>
+                    <apex:inputField value="{!address.Address_For_Order__c}"/>
+                    <apex:inputField value="{!address.Address_ID__c}"/>
+                    <apex:inputField value="{!address.Customer__c}"/>                 
+                    <apex:inputField value="{!address.Phone__c}"/>                
+                    <apex:inputField value="{!address.Description__c}"/>                   
+                    <apex:inputhidden value="{!address.Address_Key__c}"/>
             </apex:pageBlockSection>
             <apex:pageBlockButtons >
                 <apex:commandButton action="{!save}" value="Save"/>

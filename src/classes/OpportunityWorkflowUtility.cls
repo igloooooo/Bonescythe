@@ -442,77 +442,69 @@ totalAmount = totalMachineValue + totalContractValue;
             
             system.debug('@@@@@@@@ ActualValue: ' + actualValue);
             
-            if(actualValue <= 500){
                 
-                if (opportunity.Special_Delivery__c == 'Approved Exemption') {
-                    system.debug('Sales Approved Exemption, no fee. ');
-                } else if (opportunity.Special_Delivery__c == 'Sales Rep to Deliver') {
-                    system.debug('Sales Rep to Deliver, no fee. ');
-                } else if (opportunity.Special_Delivery__c == 'Customer to Collect') {
-                    system.debug('Customer to Collect, no fee. ');
-                } else if (opportunity.Special_Delivery__c == 'VIP Courier' ) {
-                    item.UnitPrice = 50.0;
-                    deleteItem = false;
-                } else if (opportunity.Special_Delivery__c == 'Same Day Delivery') {
-                    item.UnitPrice = 30.0;
-                    deleteItem = false;
-                } else if (opportunity.Freight__c == 'Standard' && actualValue <=200) {
-                    item.UnitPrice = 25.0;
-                    deleteItem = false;
-                } else if (opportunity.Freight__c == 'Standard' && actualValue >200 && actualValue <500) {
-                    item.UnitPrice = 20.0;
-                    deleteItem = false;
-                } else if (opportunity.Freight__c == 'Exempt over $200' && actualValue <=200) {
-                    item.UnitPrice = 20.0;
-                    deleteItem = false;
-                } 
+            if (opportunity.Special_Delivery__c == 'Approved Exemption') {
+                system.debug('Sales Approved Exemption, no fee. ');
+            } else if (opportunity.Special_Delivery__c == 'Sales Rep to Deliver') {
+                system.debug('Sales Rep to Deliver, no fee. ');
+            } else if (opportunity.Special_Delivery__c == 'Customer to Collect') {
+                system.debug('Customer to Collect, no fee. ');
+            } else if (opportunity.Special_Delivery__c == 'VIP Courier' ) {
+                item.UnitPrice = 50.0;
+                deleteItem = false;
+            } else if (opportunity.Special_Delivery__c == 'Same Day Delivery') {
+                item.UnitPrice = 30.0;
+                deleteItem = false;
+            } else if (opportunity.Freight__c == 'Standard' && actualValue <=200) {
+                item.UnitPrice = 25.0;
+                deleteItem = false;
+            } else if (opportunity.Freight__c == 'Standard' && actualValue >200 && actualValue <500) {
+                item.UnitPrice = 20.0;
+                deleteItem = false;
+            } else if (opportunity.Freight__c == 'Exempt over $200' && actualValue <=200) {
+                item.UnitPrice = 20.0;
+                deleteItem = false;
+            } 
+            
+            if(!isUpdate){
                 
-                if(!isUpdate){
-                    
-                    item.PricebookEntryId = [select Id
-                                             from PricebookEntry
-                                             where Product2.Item_No__c = 'FREIGHT1'
-                                             and isActive = true
-                                             and Pricebook2Id = :opportunity.Pricebook2Id
-                                             limit 1
-                                            ].Id;
-                    
-                    item.Quantity = 1;
-                    item.OpportunityId = opportunity.Id;
-                    item.Service_Install_Required__c = 'No';
-                    item.WHS__c = lineItems[0].WHS__c;
-                    item.Description = 'Freight';
-                    
-                    item.Completion_Status__c = 'Complete';
-                }
+                item.PricebookEntryId = [select Id
+                                         from PricebookEntry
+                                         where Product2.Item_No__c = 'FREIGHT1'
+                                         and isActive = true
+                                         and Pricebook2Id = :opportunity.Pricebook2Id
+                                         limit 1
+                                        ].Id;
                 
-                if(!deleteItem){
-                    try{
-                        database.upsert(item);
-                        if(!isUpdate && opportunity.Requested_Delivery_Date__c != null){
-                            oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(5);
-                        }
-                    } catch (exception e){
-                        system.debug('FREIGHT PRODUCT COULD NOT BE ADDED: ' + e.getMessage());
+                item.Quantity = 1;
+                item.OpportunityId = opportunity.Id;
+                item.Service_Install_Required__c = 'No';
+                item.WHS__c = lineItems[0].WHS__c;
+                item.Description = 'Freight';
+                
+                item.Completion_Status__c = 'Complete';
+            }
+            
+            if(!deleteItem){
+                try{
+                    database.upsert(item);
+                    if(!isUpdate && opportunity.Requested_Delivery_Date__c != null){
+                        oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(5);
                     }
-                } else {
-                    if(isUpdate){
-                        database.delete(item);
-                        system.debug('@@@@@@@@ opportunity.Requested_Delivery_Date__c: ' + opportunity.Requested_Delivery_Date__c);
-                        if(opportunity.Requested_Delivery_Date__c != null){
-                            oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(-5);
-                        }
-                        system.debug('@@@@@@@@ oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c: ' + oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c);
-                    }
+                } catch (exception e){
+                    system.debug('FREIGHT PRODUCT COULD NOT BE ADDED: ' + e.getMessage());
                 }
             } else {
                 if(isUpdate){
                     database.delete(item);
+                    system.debug('@@@@@@@@ opportunity.Requested_Delivery_Date__c: ' + opportunity.Requested_Delivery_Date__c);
                     if(opportunity.Requested_Delivery_Date__c != null){
-                    	oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(-5);
+                        oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c = opportunity.Requested_Delivery_Date__c.addDays(-5);
                     }
+                    system.debug('@@@@@@@@ oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c: ' + oppsForUpdate.get(opportunity.Id).Requested_Delivery_Date__c);
                 }
             }
+            
         }
     }
     

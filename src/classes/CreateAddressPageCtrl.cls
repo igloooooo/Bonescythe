@@ -1,5 +1,6 @@
 public class CreateAddressPageCtrl {
     public final Address__c address {get;set;}
+    public final datasan__Address__c a {get;set}
     private ApexPages.StandardController controller;
     public CreateAddressPageCtrl(ApexPages.StandardController controller) {
         address = (Address__c)controller.getrecord();   
@@ -28,5 +29,19 @@ public class CreateAddressPageCtrl {
         }
         
     }
+
+    public List<SelectOption> getItems() {
+        List<SelectOption> options = new List<SelectOption>();
+        options.add(new SelectOption('AUPAF','Australian postal addresses (AUPAF)'));
+        options.add(new SelectOption('GNAF','Australian geo-coded addresses (GNAF)'));
+        return options;
+    }
+
+    public datasan__Setting__c getDsSetting() {
+        datasan__Setting__c setting = [select name, datasan__Key__c, datasan__Endpoint__c from datasan__Setting__c limit 1];
+        return setting;    
+    }
+
+    
     
 }
